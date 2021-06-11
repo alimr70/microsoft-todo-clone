@@ -12,35 +12,37 @@ const LoginPage = () => {
       ? process.env.REACT_APP_API_URL
       : "";
   return (
-    <div className="social-madia">
-      {isLoading ? <Loading /> : ""}
-      <SocialMediaBtn
-        platform="Google"
-        imgSrc="./img/btn_google_dark_normal_ios.svg"
-        url={`${isInDev}auth/google`}
-      />
-      <SocialMediaBtn
-        platform="Twitter"
-        imgSrc="./img/Twitter_social_icons_circle_blue.png"
-        url={`${isInDev}auth/twitter`}
-      />
-      <div className="divider">
-        <span className="dividerLine"></span>
-        <span className="dividerText">OR</span>
-        <span className="dividerLine"></span>
+    <div className="home-page-container">
+      <div className="home-page">
+        {isLoading ? <Loading /> : ""}
+        <SocialMediaBtn
+          platform="Google"
+          imgSrc="./img/btn_google_dark_normal_ios.svg"
+          url={`${isInDev}auth/google`}
+        />
+        <SocialMediaBtn
+          platform="Twitter"
+          imgSrc="./img/Twitter_social_icons_circle_blue.png"
+          url={`${isInDev}auth/twitter`}
+        />
+        <div className="divider">
+          <span className="dividerLine"></span>
+          <span className="dividerText">OR</span>
+          <span className="dividerLine"></span>
+        </div>
+        <LoginForm />
+        <p>
+          Don't have an account?
+          <span
+            style={{ cursor: "pointer" }}
+            className="social-title"
+            onClick={() => {
+              history.push("/signup");
+            }}>
+            Sign Up!
+          </span>
+        </p>
       </div>
-      <LoginForm />
-      <p>
-        Don't have an account?
-        <span
-          style={{ cursor: "pointer" }}
-          className="social-title"
-          onClick={() => {
-            history.push("/signup");
-          }}>
-          Sign Up!
-        </span>
-      </p>
     </div>
   );
 };

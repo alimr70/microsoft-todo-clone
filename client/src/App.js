@@ -12,6 +12,7 @@ import Profile from "./components/auth/Profile";
 import SignUpPage from "./components/auth/SignUpPage";
 import HomePage from "./components/auth/HomePage";
 import Loading from "./components/auth/Loading";
+import Todo from "./components/todo/Todo";
 
 const App = () => {
   const dispatch = useDispatch();
@@ -26,34 +27,37 @@ const App = () => {
     <Router>
       <div className="App">
         {isLoading ? <Loading /> : ""}
-        <div className="container">
-          <Switch>
-            <Route exact path={`${process.env.PUBLIC_URL}/`}>
-              <HomePage />
-            </Route>
-            <Route path={`${process.env.PUBLIC_URL}/login`}>
-              {isAuthenticated ? (
-                <Redirect to={`${process.env.PUBLIC_URL}`} />
-              ) : (
-                <LoginPage />
-              )}
-            </Route>
-            <Route path={`${process.env.PUBLIC_URL}/signup`}>
-              {isAuthenticated ? (
-                <Redirect to={`${process.env.PUBLIC_URL}`} />
-              ) : (
-                <SignUpPage />
-              )}
-            </Route>
-            <Route path={`${process.env.PUBLIC_URL}/profile`}>
-              {isAuthenticated ? (
-                <Profile />
-              ) : (
-                <Redirect to={`${process.env.PUBLIC_URL}/login`} />
-              )}
-            </Route>
-          </Switch>
-        </div>
+        {/* <div className="container"> */}
+        <Switch>
+          <Route exact path={`${process.env.PUBLIC_URL}/`}>
+            <HomePage />
+          </Route>
+          <Route path={`${process.env.PUBLIC_URL}/login`}>
+            {isAuthenticated ? (
+              <Redirect to={`${process.env.PUBLIC_URL}`} />
+            ) : (
+              <LoginPage />
+            )}
+          </Route>
+          <Route path={`${process.env.PUBLIC_URL}/signup`}>
+            {isAuthenticated ? (
+              <Redirect to={`${process.env.PUBLIC_URL}`} />
+            ) : (
+              <SignUpPage />
+            )}
+          </Route>
+          <Route path={`${process.env.PUBLIC_URL}/profile`}>
+            {isAuthenticated ? (
+              <Profile />
+            ) : (
+              <Redirect to={`${process.env.PUBLIC_URL}/login`} />
+            )}
+          </Route>
+          <Route path={`${process.env.PUBLIC_URL}/todo`}>
+            <Todo />
+          </Route>
+        </Switch>
+        {/* </div> */}
       </div>
     </Router>
   );

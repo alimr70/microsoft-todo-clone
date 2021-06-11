@@ -1,7 +1,8 @@
-*,
+/* *,
 *::before,
 *::after {
   box-sizing: border-box;
+  list-style-type: none;
 }
 
 body {
@@ -9,7 +10,7 @@ body {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-}
+} */
 
 .divider {
   width: 100%;
@@ -33,18 +34,21 @@ body {
   color: #4285f4ff;
 }
 
-.App {
+
+/* .App {
   background-color: #eee;
   display: flex;
   justify-content: center;
   align-items: center;
   width: 100vw;
   height: 100vh;
-}
+} */
 
+
+/* 
 .container {
   width: 85%;
-}
+} */
 
 .home-page-container {
   width: 100%;
@@ -56,6 +60,7 @@ body {
   min-width: 300px;
   max-width: 500px;
   align-items: center;
+  justify-content: center;
   display: flex;
   flex-direction: column;
 }
@@ -71,6 +76,7 @@ body {
   margin: 0.2rem;
   display: flex;
   justify-content: flex-start;
+  align-items: center;
   border-radius: 30px;
   background-color: #fff;
   border: 2px solid #4285f4ff;
@@ -199,6 +205,574 @@ input:focus {
 
 
 /*             End Loading Indicator from https://loading.io/css/             */
+
+
+/* -------------------------------------------------------------------------- */
+
+
+/* -------------------------------------------------------------------------- */
+
+
+/*                               Start Todo App                               */
+
+
+/* -------------------------------------------------------------------------- */
+
+
+/* The emerging W3C standard
+   that is currently Firefox-only */
+
+* {
+  scrollbar-width: thin;
+  scrollbar-color: #a1a1a1 #171718;
+}
+
+
+/* Works on Chrome/Edge/Safari */
+
+*::-webkit-scrollbar {
+  width: 12px;
+}
+
+*::-webkit-scrollbar-track {
+  background: #171718;
+}
+
+*::-webkit-scrollbar-thumb {
+  background-color: #a1a1a1;
+  border-radius: 20px;
+  border: 3px solid #171718;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
+  list-style-type: none;
+  color: #a1a1a1;
+}
+
+html {
+  height: 100%;
+}
+
+body {
+  width: 100%;
+  height: 100%;
+}
+
+#root {
+  height: 100%;
+}
+
+.App {
+  background-color: #171718;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  overflow: hidden;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+}
+
+.container-left {
+  background-color: #242426;
+  min-width: 250px;
+  max-width: 400px;
+  height: 100%;
+  z-index: 1002;
+}
+
+@media (max-width: 800px) {
+  .container-left {
+    position: fixed;
+    top: 0;
+    left: 0;
+    transform: translateX(-100%);
+    transition: all 0.3s ease;
+  }
+}
+
+.container-center {
+  background-color: #1A1B1C;
+  min-width: 350px;
+  width: 100%;
+  height: 100%;
+  margin: 0 2px;
+}
+
+.container-right {
+  background-color: #1E1E1E;
+  max-width: 300px;
+  height: 100%;
+  z-index: 1001;
+}
+
+@media (max-width: 1020px) {
+  .container-right {
+    position: fixed;
+    top: 0;
+    right: 0;
+    transform: translateX(100%);
+    transition: all 0.3s ease;
+  }
+}
+
+.left,
+.center,
+.right {
+  margin-top: 5rem;
+}
+
+.overlay {
+  cursor: pointer;
+  display: none;
+  background-color: #0000009d;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1000;
+}
+
+.overlay-btn {
+  position: absolute;
+  top: 1rem;
+  left: 0.5rem;
+  z-index: 1005;
+}
+
+.overlay-btn .icon {
+  width: 48px;
+  margin: 0 4px 4px 4px;
+}
+
+.hide {
+  display: none !important;
+}
+
+.unhide {
+  display: block !important;
+}
+
+.unshift {
+  display: block;
+  transform: translateX(0);
+}
+
+.toolbar-item:hover {
+  background: #e1e1e1;
+}
+
+.toolbar-inner {
+  color: #a1a1a1;
+  cursor: pointer;
+  height: 3rem;
+  display: flex;
+  align-items: center;
+  padding: 0 12px;
+}
+
+.toolbar-title {
+  margin: 0 8px;
+  font-size: 1rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.toolbar-count,
+.toolbar-collapse-arrow {
+  margin-left: auto;
+  padding: 0 4px;
+}
+
+.devider {
+  margin: 9px 16px;
+  height: 1px;
+  background-color: #a1a1a1;
+}
+
+.add-list-and-group {
+  align-items: center;
+  display: flex;
+  height: 3rem;
+}
+
+.add-list {
+  flex-grow: 2;
+  padding-left: 12px;
+  height: 3rem;
+  display: flex;
+}
+
+.add-list:focus-within {
+  border: solid 1px #e1e1e1;
+}
+
+.add-list input[type=text] {
+  display: inline-block;
+  width: 100%;
+  padding: 6px 6px 8px 6px;
+  border: none;
+  background: none;
+  box-shadow: none;
+  border-radius: 0;
+  outline: none;
+  color: #a1a1a1;
+}
+
+.add-group {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+}
+
+.add-group:hover {
+  background: #e1e1e1;
+}
+
+.add-group button {
+  padding-right: 12px;
+}
+
+.group-lists {
+  margin-left: 19px;
+  display: none;
+}
+
+.tasks {
+  padding: 0 3rem;
+  flex: 1 1 0px;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+@media (max-width: 800px) {
+  .tasks {
+    padding: 0 1rem;
+  }
+}
+
+.tasks-toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.tasks-toolbar-options {
+  position: relative;
+}
+
+.tasks-toolbar-options button {
+  padding: 0.3rem;
+}
+
+.tasks-toolbar-options:hover {
+  background-color: #e1e1e1;
+}
+
+.tasks-toolbar-menu {
+  display: none;
+  position: absolute;
+  top: 35px;
+  right: 0px;
+  background-color: #171718;
+  z-index: 111;
+}
+
+.task-items {
+  margin-top: 2rem;
+  position: relative;
+  flex: 1;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+.task-item-body {
+  margin: 0.3rem 0;
+  border-radius: 5px;
+  background-color: #242426;
+  min-height: 52px;
+  display: flex;
+  align-items: center;
+  position: relative;
+  word-wrap: break-word;
+  word-break: break-word;
+  padding: 0 12px;
+  flex-wrap: wrap;
+}
+
+.checkbox {
+  padding: 0px;
+  cursor: pointer;
+  height: 32px;
+  width: 32px;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.task-item-title {
+  text-align: left;
+  font-size: 1.1rem;
+  font-weight: 700;
+  position: relative;
+  flex: 1 1 0px;
+  min-height: 52px;
+  padding: 8px 12px;
+  line-height: 2rem;
+  overflow: hidden;
+}
+
+.task-item-title:hover {
+  background-color: unset !important;
+}
+
+.planned {
+  display: flex;
+  flex-direction: column;
+  line-height: unset;
+}
+
+.planned-date {
+  font-size: 0.7rem;
+  color: lightcoral;
+}
+
+.add-task-body {
+  margin: 3rem 0;
+}
+
+.add-task:hover {
+  background: unset;
+}
+
+.add-task .btn:hover {
+  background: unset;
+}
+
+.task-detail-header {
+  display: flex;
+  align-items: center;
+  width: 100%;
+}
+
+.task-detail-title,
+.add-step-body {
+  margin: 0;
+  border-radius: 0;
+}
+
+.editable-title {
+  user-select: text;
+  cursor: text !important;
+}
+
+.detailbar-item {
+  display: flex;
+  align-items: center;
+  margin: 0.5rem;
+  background: #242426;
+}
+
+.detailbar-item:hover {
+  background-color: #242426;
+}
+
+.detail-footer {
+  margin: auto 0 0 0;
+  width: 100%;
+  background: #242426;
+}
+
+.detail-footer .toolbar-inner {
+  cursor: unset;
+  padding: 0;
+}
+
+.detail-footer .add-group:hover,
+.detail-footer .btn:hover {
+  background-color: #242426;
+}
+
+@media (max-width: 1020px) {
+  .detail-footer {
+    position: fixed;
+    bottom: 0;
+  }
+}
+
+.detail-footer:hover {
+  background-color: #242426;
+}
+
+.detail-footer .toolbar-title {
+  margin: auto;
+}
+
+.detail-footer .icon {
+  transform: rotate(-90deg);
+}
+
+.detail-footer button {
+  padding: 0 12px;
+}
+
+.detail-delete .icon {
+  transform: rotate(0);
+}
+
+.step {
+  width: 100%;
+}
+
+.step .icon {
+  width: 18px;
+}
+
+.return-to-null {
+  height: 48px;
+  width: 20%;
+  margin-left: auto;
+  border: none;
+  background: none;
+  outline: none;
+  cursor: pointer;
+}
+
+.return-to-null:hover {
+  background-color: #1A1B1C;
+}
+
+.return-to-null i {
+  transform: rotate(45deg);
+}
+
+.input-container {
+  position: relative;
+}
+
+.datepicker-input {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  cursor: pointer;
+  box-sizing: border-box;
+}
+
+.datepicker-input::-webkit-calendar-picker-indicator {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  cursor: pointer;
+}
+
+.icon {
+  text-align: center;
+  display: inline-block;
+  color: #a1a1a1;
+  width: 24px;
+  display: inline-block;
+}
+
+.icon-calendar {
+  content: url("./svgs/calendar-icon.svg");
+}
+
+.icon-group {
+  content: url("./svgs/group-icon.svg");
+}
+
+.icon-group-plus {
+  content: url("./svgs/group-plus-icon.svg");
+}
+
+.icon-ham {
+  content: url("./svgs/ham-icon.svg");
+}
+
+.icon-person {
+  content: url("./svgs/person-icon.svg");
+}
+
+.icon-plus {
+  content: url("./svgs/plus-icon.svg");
+}
+
+.icon-star {
+  content: url("./svgs/star-icon.svg");
+}
+
+.icon-star-checked {
+  content: url("./svgs/star-checked-icon.svg");
+}
+
+.icon-sun {
+  content: url("./svgs/sun-icon.svg");
+}
+
+.icon-home {
+  content: url("./svgs/home-icon.svg");
+}
+
+.icon-arrow {
+  content: url("./svgs/arrow-icon.svg");
+}
+
+.icon-menu {
+  content: url("./svgs/menu-icon.svg");
+}
+
+.icon-trash {
+  content: url("./svgs/trash-icon.svg");
+}
+
+.icon-checkbox-empty {
+  content: url("./svgs/checkbox-empty-icon.svg");
+}
+
+.icon-checkbox-empty:hover {
+  content: url("./svgs/checkbox-hover-icon.svg");
+}
+
+.icon-checkbox-checked {
+  content: url("./svgs/checkbox-checked-icon.svg");
+}
+
+.btn {
+  border: none;
+  background: none;
+  outline: none;
+  cursor: pointer;
+}
+
+.btn:hover {
+  background: #e1e1e1;
+}
+
+
+/* -------------------------------------------------------------------------- */
+
+
+/*                                End Todo App                                */
 
 
 /* -------------------------------------------------------------------------- */
