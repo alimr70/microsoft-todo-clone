@@ -105,3 +105,186 @@ export const returnErrors = (msg, status) => {
 export const clearErrors = () => {
   return { type: "CLEAR_ERRORS" };
 };
+
+/* -------------------------------------------------------------------------- */
+/*                              TODO app actions                              */
+/* -------------------------------------------------------------------------- */
+
+/**
+ * UI actions
+ */
+export const openLeftCol = () => {
+  return {
+    type: "OPEN_LEFT_COL",
+  };
+};
+
+export const closeLeftCol = () => {
+  return {
+    type: "CLOSE_LEFT_COL",
+  };
+};
+
+export const openRightCol = () => {
+  return {
+    type: "OPEN_RIGHT_COL",
+  };
+};
+
+export const closeRightCol = () => {
+  return {
+    type: "CLOSE_RIGHT_COL",
+  };
+};
+
+export const setScreenWidth = (screenWidth) => {
+  return {
+    type: "SET_SCREEN_WIDTH",
+    payload: { screenWidth },
+  };
+};
+
+/**
+ * Lists actions
+ */
+
+export const addList = (id, title) => {
+  return {
+    type: "ADD_LIST",
+    payload: {
+      id,
+      title,
+    },
+  };
+};
+
+export const editListTitle = (id, title) => {
+  return {
+    type: "EDIT_LIST_TITLE",
+    payload: {
+      id,
+      title,
+    },
+  };
+};
+
+/**
+ * Tasks actions
+ */
+
+export const addTask = (
+  id,
+  title,
+  parentListId,
+  createdAt,
+  addedToMyDay,
+  Important,
+  Planned
+) => {
+  return {
+    type: "ADD_TASK",
+    payload: {
+      id,
+      title,
+      parentListId,
+      createdAt,
+      addedToMyDay,
+      Important,
+      Planned,
+    },
+  };
+};
+
+export const checkTask = (id, isChecked) => {
+  return {
+    type: "CHECK_TASK",
+    payload: {
+      id,
+      isChecked,
+    },
+  };
+};
+
+export const editTaskTitle = (id, title) => {
+  return {
+    type: "EDIT_TASK_TITLE",
+    payload: {
+      id,
+      title,
+    },
+  };
+};
+
+export const addToMyDay = (id, addedToMyDay) => {
+  return {
+    type: "ADD_TO_MY_DAY",
+    payload: {
+      id,
+      addedToMyDay,
+    },
+  };
+};
+
+export const dueDate = (id, Planned) => {
+  return {
+    type: "DUE_DATE",
+    payload: {
+      id,
+      Planned,
+    },
+  };
+};
+
+export const important = (id, Important) => {
+  return {
+    type: "IMPORTANT_TASK",
+    payload: {
+      id,
+      Important,
+    },
+  };
+};
+
+export const deleteTask = (id) => {
+  return {
+    type: "DELETE_TASK",
+    payload: {
+      id,
+    },
+  };
+};
+
+/**
+ * Steps actions
+ */
+
+export const addStep = (parentTaskId, id, title) => {
+  return {
+    type: "ADD_STEP",
+    payload: {
+      parentTaskId,
+      id,
+      title,
+    },
+  };
+};
+
+export const checkStep = (id, isChecked) => {
+  return {
+    type: "CHECK_STEP",
+    payload: {
+      id,
+      isChecked,
+    },
+  };
+};
+
+export const editStepTitle = (id, title) => {
+  return {
+    type: "EDIT_STEP_TITLE",
+    payload: {
+      id,
+      title,
+    },
+  };
+};

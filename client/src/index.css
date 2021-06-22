@@ -159,6 +159,11 @@ input:focus {
 
 /* -------------------------------------------------------------------------- */
 
+.Link {
+  text-decoration: none;
+  margin-right: auto;
+}
+
 .lds-ring {
   display: inline-block;
   position: relative;
@@ -591,7 +596,8 @@ body {
 }
 
 .detail-footer {
-  margin: auto 0 0 0;
+  position: fixed;
+  bottom: 0;
   width: 100%;
   background: #242426;
 }
@@ -604,13 +610,6 @@ body {
 .detail-footer .add-group:hover,
 .detail-footer .btn:hover {
   background-color: #242426;
-}
-
-@media (max-width: 1020px) {
-  .detail-footer {
-    position: fixed;
-    bottom: 0;
-  }
 }
 
 .detail-footer:hover {
@@ -693,70 +692,6 @@ body {
   display: inline-block;
 }
 
-.icon-calendar {
-  content: url("./svgs/calendar-icon.svg");
-}
-
-.icon-group {
-  content: url("./svgs/group-icon.svg");
-}
-
-.icon-group-plus {
-  content: url("./svgs/group-plus-icon.svg");
-}
-
-.icon-ham {
-  content: url("./svgs/ham-icon.svg");
-}
-
-.icon-person {
-  content: url("./svgs/person-icon.svg");
-}
-
-.icon-plus {
-  content: url("./svgs/plus-icon.svg");
-}
-
-.icon-star {
-  content: url("./svgs/star-icon.svg");
-}
-
-.icon-star-checked {
-  content: url("./svgs/star-checked-icon.svg");
-}
-
-.icon-sun {
-  content: url("./svgs/sun-icon.svg");
-}
-
-.icon-home {
-  content: url("./svgs/home-icon.svg");
-}
-
-.icon-arrow {
-  content: url("./svgs/arrow-icon.svg");
-}
-
-.icon-menu {
-  content: url("./svgs/menu-icon.svg");
-}
-
-.icon-trash {
-  content: url("./svgs/trash-icon.svg");
-}
-
-.icon-checkbox-empty {
-  content: url("./svgs/checkbox-empty-icon.svg");
-}
-
-.icon-checkbox-empty:hover {
-  content: url("./svgs/checkbox-hover-icon.svg");
-}
-
-.icon-checkbox-checked {
-  content: url("./svgs/checkbox-checked-icon.svg");
-}
-
 .btn {
   border: none;
   background: none;
@@ -766,6 +701,11 @@ body {
 
 .btn:hover {
   background: #e1e1e1;
+}
+
+.editable-title {
+  user-select: text;
+  cursor: text;
 }
 
 

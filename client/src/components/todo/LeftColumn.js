@@ -1,164 +1,181 @@
+import { Link } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { useEffect, useState } from "react";
+import { isToday, isFutur } from "../../redux/utils/utils";
+import * as actions from "../../redux/actions/actions";
+import { nanoid } from "nanoid";
+
 const LeftColumn = () => {
+  const lists = useSelector((state) => state.lists);
+
+  const isLeftColOpen = useSelector((state) => state.ui.isLeftColOpen);
+  const hideOrNot = isLeftColOpen
+    ? "container container-left unshift"
+    : "container container-left";
+
   return (
     <>
-      <div class="container container-left">
-        <div class="left toolbar">
+      <div className={hideOrNot}>
+        <div className="left toolbar">
           <ul>
-            <div>
-              <li class="toolbar-item">
-                <div class="toolbar-inner">
-                  <div class="toolbar-icon">
-                    <i class="icon icon-sun"></i>
-                  </div>
-                  <div class="toolbar-title">
-                    <span>My Day</span>
-                  </div>
-                  <div class="toolbar-count"></div>
-                </div>
-              </li>
-            </div>
-            <div>
-              <li class="toolbar-item">
-                <div class="toolbar-inner">
-                  <div class="toolbar-icon">
-                    <i class="icon icon-star"></i>
-                  </div>
-                  <div class="toolbar-title">
-                    <span>Important</span>
-                  </div>
-                  <div class="toolbar-count"></div>
-                </div>
-              </li>
-            </div>
-            <div>
-              <li class="toolbar-item">
-                <div class="toolbar-inner">
-                  <div class="toolbar-icon">
-                    <i class="icon icon-calendar"></i>
-                  </div>
-                  <div class="toolbar-title">
-                    <span>Planned</span>
-                  </div>
-                  <div class="toolbar-count"></div>
-                </div>
-              </li>
-            </div>
-            <div>
-              <li class="toolbar-item">
-                <div class="toolbar-inner">
-                  <div class="toolbar-icon">
-                    <i class="icon icon-home"></i>
-                  </div>
-                  <div class="toolbar-title">
-                    <span>Tasks</span>
-                  </div>
-                  <div class="toolbar-count">3</div>
-                </div>
-              </li>
-            </div>
-            <div class="devider"></div>
-            <div class="groups">
-              <div>
-                <li class="toolbar-item">
-                  <div class="toolbar-inner">
-                    <div class="toolbar-icon">
-                      <i class="icon icon-group"></i>
-                    </div>
-                    <div class="toolbar-title">
-                      <span>group num #1</span>
-                    </div>
-                    <div class="toolbar-collapse-arrow">
-                      <i class="icon icon-arrow"></i>
-                    </div>
-                  </div>
-                </li>
-              </div>
-              <ul class="group-lists">
-                <div>
-                  <li class="toolbar-item">
-                    <div class="toolbar-inner">
-                      <div class="toolbar-icon">
-                        <i class="icon icon-ham"></i>
-                      </div>
-                      <div class="toolbar-title">
-                        <span>List Num #1</span>
-                      </div>
-                      <div class="toolbar-count"></div>
-                    </div>
-                  </li>
-                </div>
-              </ul>
-              <div>
-                <li class="toolbar-item">
-                  <div class="toolbar-inner">
-                    <div class="toolbar-icon">
-                      <i class="icon icon-group"></i>
-                    </div>
-                    <div class="toolbar-title">
-                      <span>group num #2</span>
-                    </div>
-                  </div>
-                </li>
-              </div>
-              <ul class="group-lists"></ul>
-            </div>
-            <div>
-              <li class="toolbar-item">
-                <div class="toolbar-inner">
-                  <div class="toolbar-icon">
-                    <i class="icon icon-ham"></i>
-                  </div>
-                  <div class="toolbar-title">
-                    <span>List Num #2</span>
-                  </div>
-                  <div class="toolbar-count"></div>
-                </div>
-              </li>
-            </div>
+            <BuiltInLists />
+            <Divider />
+            <UserLists listsArr={lists} />
           </ul>
         </div>
-        <div class="add-list-and-group">
-          <div class="add-list">
-            <button class="btn">
-              <i class="icon icon-plus"></i>
-            </button>
-            <input
-              type="text"
-              name="addList"
-              maxlength="255"
-              placeholder="New List"
-              value=""
-            />
-          </div>
-          <div class="add-group">
-            <button class="btn">
-              <i class="icon icon-group-plus"></i>
-            </button>
-          </div>
-        </div>
+        <AddList />
       </div>
     </>
   );
 };
 
-const PremadeLists = () => {
-  return "PremadeLists";
-};
-
 const Divider = () => {
-  return "Divider";
+  return <div className="devider"></div>;
 };
 
-const Groups = () => {
-  return "Groups";
+const BuiltInLists = () => {
+  return (
+    <>
+      <List
+        key="My Day"
+        imgSrc={`${process.env.PUBLIC_URL}/img/sun-icon.svg`}
+        listId="My Day"
+        listTitle="My Day"
+      />
+      <List
+        key="Important"
+        imgSrc={`${process.env.PUBLIC_URL}/img/star-icon.svg`}
+        listId="Important"
+        listTitle="Important"
+      />
+      <List
+        key="Planned"
+        imgSrc={`${process.env.PUBLIC_URL}/img/calendar-icon.svg`}
+        listId="Planned"
+        listTitle="Planned"
+      />
+      <List
+        key="Tasks"
+        imgSrc={`${process.env.PUBLIC_URL}/img/home-icon.svg`}
+        listId="Tasks"
+        listTitle="Tasks"
+      />
+    </>
+  );
 };
 
-const List = () => {
-  return "List";
+const UserLists = ({ listsArr }) => {
+  return listsArr.map((list) => {
+    return <List key={list.id} listId={list.id} listTitle={list.title} />;
+  });
+};
+
+const List = ({ imgSrc, listId, listTitle }) => {
+  imgSrc = !imgSrc ? `${process.env.PUBLIC_URL}/img/ham-icon.svg` : imgSrc;
+  const tasks = useSelector((state) => state.tasks);
+  let activeTaskCount = getActiveTaskCount(listId, tasks);
+
+  return (
+    <Link to={`/todo/${listId}`} className="Link">
+      <div>
+        <li className="toolbar-item">
+          <div className="toolbar-inner">
+            <div className="toolbar-icon">
+              <i className="icon">
+                <img src={imgSrc} alt="" />
+              </i>
+            </div>
+            <div className="toolbar-title">
+              <span>{listTitle}</span>
+            </div>
+            <div className="toolbar-count">{activeTaskCount}</div>
+          </div>
+        </li>
+      </div>
+    </Link>
+  );
+};
+
+const getActiveTaskCount = (listId, tasks) => {
+  let activeTask = 0;
+  switch (listId) {
+    case "My Day":
+      activeTask = tasks.filter(
+        (task) => isToday(task.addedToMyDay) && !task.isChecked
+      ).length;
+      break;
+
+    case "Important":
+      activeTask = tasks.filter(
+        (task) => task.Important && !task.isChecked
+      ).length;
+      break;
+
+    case "Planned":
+      activeTask = tasks.filter(
+        (task) => isFutur(task.Planned) && !task.isChecked
+      ).length;
+      break;
+
+    default:
+      activeTask = tasks.filter(
+        (task) => task.parentListId === listId && !task.isChecked
+      ).length;
+  }
+  return activeTask > 0 ? activeTask : "";
 };
 
 const AddList = () => {
-  return "AddList";
+  const dispatch = useDispatch();
+  const [text, setText] = useState("");
+
+  useEffect(() => {
+    const handleEnterkey = (e) => {
+      if (e.key === "Enter") {
+        dispatch(actions.addList(nanoid(), text));
+        setText("");
+      }
+    };
+
+    document
+      .getElementById("addList")
+      .addEventListener("keypress", handleEnterkey);
+
+    // Clean up the component
+    return () => {
+      document
+        .getElementById("addList")
+        .removeEventListener("keypress", handleEnterkey);
+    };
+  }, [dispatch, text]);
+
+  return (
+    <div className="add-list-and-group">
+      <div className="add-list">
+        <button
+          className="btn"
+          onClick={() => {
+            dispatch(actions.addList(nanoid(), text));
+            setText("");
+          }}>
+          <i className="icon">
+            <img src={`${process.env.PUBLIC_URL}/img/plus-icon.svg`} alt="" />
+          </i>
+        </button>
+        <input
+          id="addList"
+          onChange={(e) => {
+            setText(e.target.value);
+          }}
+          type="text"
+          name="addList"
+          maxLength="255"
+          placeholder="New List"
+          value={text}
+        />
+      </div>
+    </div>
+  );
 };
 
 export default LeftColumn;

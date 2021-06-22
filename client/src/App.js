@@ -55,6 +55,7 @@ const App = () => {
           </Route>
           <Route path={`${process.env.PUBLIC_URL}/todo`}>
             <Todo />
+            <Redirect to={`${process.env.PUBLIC_URL}/todo/Tasks`} />
           </Route>
         </Switch>
         {/* </div> */}
