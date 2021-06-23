@@ -15,6 +15,7 @@ const { googleConfig, twitterConfig } = require("./config/passport");
 // Routes
 const indexRoutes = require("./routes/index");
 const authRoutes = require("./routes/auth");
+const todoRoutes = require("./routes/todo");
 
 // Load .env configs
 dotenv.config({ path: path.join(__dirname, "./config/dev.env") });
@@ -70,6 +71,7 @@ app.use(express.urlencoded({ extended: true })); // support encoded bodies
 
 // Use routes
 app.use("/auth", authRoutes);
+app.use("/todo", todoRoutes);
 
 // Serve static assets if in production
 if (process.env.NODE_ENV === "production") {

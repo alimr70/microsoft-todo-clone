@@ -1,98 +1,23 @@
 {
-  "Tasks": [{
-      "id": "1",
-      "title": "Important and my day",
-      "isChecked": true,
-      "addedToMyDay": 1623571409512,
-      "Important": true,
-      "Planned": null,
-      "parentListId": "1",
-      "createdAt": 1602294834230
-    },
-    {
-      "id": "2",
-      "title": "Tasks and Planned1",
-      "isChecked": true,
-      "addedToMyDay": 1603081025853,
-      "Important": false,
-      "Planned": 1633081025853,
-      "parentListId": "Tasks",
-      "createdAt": 1602394853734
-    },
-    {
-      "id": "10",
-      "title": "Tasks and Planned2",
-      "isChecked": false,
-      "addedToMyDay": 1603081025853,
-      "Important": false,
-      "Planned": null,
-      "parentListId": "Tasks",
-      "createdAt": 1602594853734
-    },
-    {
-      "id": "12",
-      "title": "This task from futur",
-      "isChecked": false,
-      "addedToMyDay": 1603081025853,
-      "Important": false,
-      "Planned": 1608076800000,
-      "parentListId": "Tasks",
-      "createdAt": 1604994853734
-    },
-    {
-      "id": "3",
-      "title": "belong to list num 2",
-      "isChecked": true,
-      "addedToMyDay": 1609905396515,
-      "Important": false,
-      "Planned": null,
-      "parentListId": "2",
-      "createdAt": 1602994853734
-    }
-  ],
-  "Steps": [{
-      "parentTaskId": "2",
-      "id": "111",
-      "title": "Tasks and Planned1 step",
-      "isChecked": false
-    },
-    {
-      "parentTaskId": "10",
-      "id": "222",
-      "title": "Tasks and Planned2 step",
-      "isChecked": true
-    },
-    {
-      "parentTaskId": "12",
-      "id": "333",
-      "title": "This task from futur step",
-      "isChecked": false
-    },
-    {
-      "parentTaskId": "3",
-      "id": "444",
-      "title": "belong to list num 2 step",
-      "isChecked": false
-    }
-  ],
   "Lists": [{
-      "id": "1",
-      "title": "List Num #1",
-      "group": 1
-    },
-    {
-      "id": "2",
-      "title": "List Num #2",
-      "group": null
-    }
-  ],
-  "Groups": [{
-      "id": "1",
-      "title": "group num #1"
-    },
-    {
-      "id": "2",
-      "title": "group num #2"
-    }
-  ]
+    "id": "1",
+    "title": "Getting Started",
+    "group": 1
+  }],
+  "Tasks": [{
+    "id": "1",
+    "title": "Welcome to Microsoft's To Do clone",
+    "isChecked": true,
+    "addedToMyDay": null,
+    "Important": true,
+    "Planned": null,
+    "parentListId": "1",
+    "createdAt": 1602294834230
+  }],
+  "Steps": [{
+    "parentTaskId": "1",
+    "id": "111",
+    "title": "Play around with the app and figure things out",
+    "isChecked": false
+  }]
 }

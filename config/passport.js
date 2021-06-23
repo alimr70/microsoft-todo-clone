@@ -2,6 +2,7 @@ const jwt = require("jsonwebtoken");
 const GoogleStrategy = require("passport-google-oauth20").Strategy;
 const TwitterStrategy = require("passport-twitter");
 const User = require("../models/User");
+const Tasks = require("../models/Tasks");
 
 exports.googleConfig = (passport) => {
   passport.use(
@@ -17,12 +18,16 @@ exports.googleConfig = (passport) => {
           const userData = await User.findOne({ id: profile.id });
 
           if (!userData) {
+            const tasks = new Tasks();
+            let savedTasks = await tasks.save();
+
             const newUser = {
               id: profile.id,
               username: `${profile.displayName}`,
               password: null,
               image: profile.photos[0].value,
               registerMethod: "Google",
+              tasks: savedTasks._id,
             };
             // Create new user
             let savedUser = new User(newUser);
@@ -62,12 +67,16 @@ exports.twitterConfig = (passport) => {
           const userData = await User.findOne({ id: profile.id });
 
           if (!userData) {
+            const tasks = new Tasks();
+            let savedTasks = await tasks.save();
+
             const newUser = {
               id: profile.id,
               username: `${profile.displayName}`,
               password: null,
               image: profile.photos[0].value,
               registerMethod: "Twitter",
+              tasks: savedTasks._id,
             };
             // Create new user
             let savedUser = new User(newUser);

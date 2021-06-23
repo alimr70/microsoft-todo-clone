@@ -5,6 +5,9 @@ const initialState =
 
 const listsReducer = (state = initialState, action) => {
   switch (action.type) {
+    case "SET_LOADED_LISTS_STATE":
+      return [...action.payload.Lists];
+
     case "ADD_LIST":
       return [
         ...state,

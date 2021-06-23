@@ -71,12 +71,18 @@ const UserLists = ({ listsArr }) => {
 };
 
 const List = ({ imgSrc, listId, listTitle }) => {
+  const dispatch = useDispatch();
   imgSrc = !imgSrc ? `${process.env.PUBLIC_URL}/img/ham-icon.svg` : imgSrc;
   const tasks = useSelector((state) => state.tasks);
   let activeTaskCount = getActiveTaskCount(listId, tasks);
 
   return (
-    <Link to={`/todo/${listId}`} className="Link">
+    <Link
+      to={`/todo/${listId}`}
+      className="Link"
+      onClick={() => {
+        dispatch(actions.closeLeftCol());
+      }}>
       <div>
         <li className="toolbar-item">
           <div className="toolbar-inner">

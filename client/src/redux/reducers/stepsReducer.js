@@ -5,6 +5,9 @@ const initialState =
 
 const stepsReducer = (state = initialState, action) => {
   switch (action.type) {
+    case "SET_LOADED_STEPS_STATE":
+      return [...action.payload.Steps];
+
     case "ADD_STEP":
       return [
         ...state,

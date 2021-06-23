@@ -4,6 +4,7 @@ const bcrypt = require("bcryptjs");
 const authMiddleware = require("../middleware/authMiddleware");
 const jwt = require("jsonwebtoken");
 const User = require("../models/User");
+const Tasks = require("../models/Tasks");
 const router = express.Router();
 const { v4: uuid } = require("uuid");
 
@@ -101,12 +102,16 @@ router.post("/signup", async (req, res) => {
       throw Error("Something went wrong");
     }
 
+    const tasks = new Tasks();
+    let savedTasks = await tasks.save();
+
     const newUser = new User({
       id: uuid(),
       username,
       password: hash,
       image: null,
       registerMethod: "Username & Password",
+      tasks: savedTasks._id,
     });
 
     const savedUser = await newUser.save();
@@ -157,30 +162,6 @@ router.get(
         maxAge: 1000 * 60 * 60 * 24,
         secure: true,
       });
-      res.redirect(process.env.CLIENT_URL);
-    } catch (err) {
-      res.status(400).json({ msg: err.message });
-    }
-  }
-);
-
-/**
- * @route   GET auth/facebook
- * @desc    Register new user
- * @access  Public
- */
-router.get("/facebook", passport.authenticate("facebook"));
-
-/**
- * @route   GET auth/facebook/callback
- * @desc    Login user
- * @access  Public
- */
-router.get(
-  "/facebook/callback",
-  passport.authenticate("facebook", { failureRedirect: "/facebookFailed" }),
-  (req, res) => {
-    try {
       res.redirect(process.env.CLIENT_URL);
     } catch (err) {
       res.status(400).json({ msg: err.message });
@@ -295,7 +276,7 @@ router.get("/refresh", (req, res) => {
             token: token,
           });
         } catch (err) {
-          console.log(err);
+          res.status(500).json({ msg: "Something went wrong" });
         }
       }
     });

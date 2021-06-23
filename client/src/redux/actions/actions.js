@@ -88,6 +88,28 @@ export const logout = () => async (dispatch) => {
   }
 };
 
+export const getUserData = (token) => async (dispatch) => {
+  try {
+    const res = await axios({
+      method: "get",
+      url: `/todo/getTasks`,
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+      withCredentials: true,
+    });
+
+    if (res.data) {
+      const state = res.data.state;
+      dispatch(setLoadedListsState(state.Lists));
+      dispatch(setLoadedTasksState(state.Tasks));
+      dispatch(setLoadedStepsState(state.Steps));
+    }
+  } catch (err) {
+    console.log(err);
+  }
+};
+
 /* -------------------------------------------------------------------------- */
 /*                                Error actions                               */
 /* -------------------------------------------------------------------------- */
@@ -148,6 +170,13 @@ export const setScreenWidth = (screenWidth) => {
  * Lists actions
  */
 
+const setLoadedListsState = (Lists) => {
+  return {
+    type: "SET_LOADED_LISTS_STATE",
+    payload: { Lists },
+  };
+};
+
 export const addList = (id, title) => {
   return {
     type: "ADD_LIST",
@@ -171,6 +200,13 @@ export const editListTitle = (id, title) => {
 /**
  * Tasks actions
  */
+
+const setLoadedTasksState = (Tasks) => {
+  return {
+    type: "SET_LOADED_TASKS_STATE",
+    payload: { Tasks },
+  };
+};
 
 export const addTask = (
   id,
@@ -257,6 +293,13 @@ export const deleteTask = (id) => {
 /**
  * Steps actions
  */
+
+const setLoadedStepsState = (Steps) => {
+  return {
+    type: "SET_LOADED_STEPS_STATE",
+    payload: { Steps },
+  };
+};
 
 export const addStep = (parentTaskId, id, title) => {
   return {

@@ -83,6 +83,7 @@ body {
   width: 100%;
   min-width: 300px;
   max-width: 500px;
+  line-height: 50px;
 }
 
 .social-icon {
@@ -160,8 +161,9 @@ input:focus {
 /* -------------------------------------------------------------------------- */
 
 .Link {
+  display: contents;
   text-decoration: none;
-  margin-right: auto;
+  /* margin-right: auto; */
 }
 
 .lds-ring {

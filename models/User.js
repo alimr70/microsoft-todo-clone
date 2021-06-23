@@ -7,6 +7,7 @@ const UserSchema = new mongoose.Schema({
   image: { type: String, defaul: null },
   registerMethod: { type: String },
   createdAt: { type: Date, default: Date.now() },
+  tasks: { type: mongoose.Schema.Types.ObjectId, ref: "Tasks" },
 });
 
 module.exports = mongoose.model("User", UserSchema);

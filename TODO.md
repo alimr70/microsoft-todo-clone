@@ -24,13 +24,13 @@
 - ✅ Dinamically visualize date on planned tasks
 - ✅ Fix right bar footer
 - ✅ Add functionality of right col footer close btn
-- ❌ Fix overlay
-- ❌ Restrict unauthenticated user reaching route '/todo'
-- ❌ Add functionality of fetching user data after authentication
+- ✅ Fix overlay
+- ✅ Add functionality of fetching user data after authentication
 - ❌ Add functionality of sending user data when the state is changed
+- ❌ Restrict unauthenticated user reaching route '/todo'
 
 ## Back-End
 
-- ❌ Create user model
-- ❌ Create an api end point for getting user's data if authenticated
+- ✅ Modify user model
+- ✅ Create an api end point for getting user's data if authenticated
 - ❌ Create an api end point for saving user's data if authenticated

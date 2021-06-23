@@ -5,6 +5,9 @@ const initialState =
 
 const tasksReducer = (state = initialState, action) => {
   switch (action.type) {
+    case "SET_LOADED_TASKS_STATE":
+      return [...action.payload.Tasks];
+
     case "ADD_TASK":
       return [
         ...state,

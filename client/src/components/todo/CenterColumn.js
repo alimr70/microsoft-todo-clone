@@ -43,13 +43,6 @@ const Overlay = () => {
   const [showOverlay, setshowOverlay] = useState(false);
   const [showBtn, setshowBtn] = useState(false);
   useEffect(() => {
-    if (document.documentElement.clientWidth < 800) {
-      setshowBtn(true);
-      dispatch(actions.closeLeftCol());
-    } else {
-      setshowBtn(false);
-      dispatch(actions.openLeftCol());
-    }
     const handleWindowResize = () => {
       if (document.documentElement.clientWidth < 1020) {
         setshowOverlay(true);
@@ -67,6 +60,8 @@ const Overlay = () => {
       }
     };
 
+    handleWindowResize();
+
     window.addEventListener("resize", handleWindowResize);
 
     // Clean up the component
@@ -76,8 +71,10 @@ const Overlay = () => {
   }, [dispatch]);
 
   const hideLeftOrNot = showBtn ? "btn overlay-btn" : "btn overlay-btn hide";
-  const hideRightOrNot =
-    showOverlay && isRightColOpen ? "overlay unhide" : "overlay";
+  const showOverlayOrNot =
+    (showOverlay && isRightColOpen) || (showOverlay && isLeftColOpen)
+      ? "overlay unhide"
+      : "overlay";
 
   return (
     <>
@@ -87,14 +84,16 @@ const Overlay = () => {
           isLeftColOpen
             ? dispatch(actions.closeLeftCol())
             : dispatch(actions.openLeftCol());
+          dispatch(actions.closeRightCol());
         }}>
         <i className="icon">
           <img src={`${process.env.PUBLIC_URL}/img/ham-icon.svg`} alt="" />
         </i>
       </button>
       <div
-        className={hideRightOrNot}
+        className={showOverlayOrNot}
         onClick={() => {
+          dispatch(actions.closeLeftCol());
           dispatch(actions.closeRightCol());
         }}></div>
     </>
@@ -267,15 +266,6 @@ const TaskItem = ({ listId, taskId, task }) => {
             <img src={isImportant} alt="" />
           </i>
         </span>
-      </div>
-      <div className="tasks-toolbar-options">
-        <div className="tasks-toolbar-title-item">
-          <button className="btn">
-            <i className="icon">
-              <img src={`${process.env.PUBLIC_URL}/img/menu-icon.svg`} alt="" />
-            </i>
-          </button>
-        </div>
       </div>
     </div>
   );

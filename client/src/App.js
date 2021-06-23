@@ -18,10 +18,15 @@ const App = () => {
   const dispatch = useDispatch();
   const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
   const isLoading = useSelector((state) => state.auth.isLoading);
+  const token = useSelector((state) => state.auth.token);
 
   useEffect(() => {
     dispatch(actions.getAlreadyLoggedinUserData());
-  }, [dispatch]);
+
+    if (isAuthenticated) {
+      dispatch(actions.getUserData(token));
+    }
+  }, [dispatch, isAuthenticated, token]);
 
   return (
     <Router>
