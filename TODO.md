@@ -26,11 +26,15 @@
 - ✅ Add functionality of right col footer close btn
 - ✅ Fix overlay
 - ✅ Add functionality of fetching user data after authentication
-- ❌ Add functionality of sending user data when the state is changed
+- ✅ Add functionality of sending user data when the list is added
+- ✅ Add functionality of sending user data when the task is added
+- ✅ Add functionality of sending user data when the step is added
 - ❌ Restrict unauthenticated user reaching route '/todo'
 
 ## Back-End
 
 - ✅ Modify user model
 - ✅ Create an api end point for getting user's data if authenticated
-- ❌ Create an api end point for saving user's data if authenticated
+- ✅ Create an api end point for saving user's list
+- ✅ Create an api end point for saving user's task
+- ✅ Create an api end point for saving user's step

@@ -32,7 +32,6 @@ const App = () => {
     <Router>
       <div className="App">
         {isLoading ? <Loading /> : ""}
-        {/* <div className="container"> */}
         <Switch>
           <Route exact path={`${process.env.PUBLIC_URL}/`}>
             <HomePage />
@@ -63,7 +62,6 @@ const App = () => {
             <Redirect to={`${process.env.PUBLIC_URL}/todo/Tasks`} />
           </Route>
         </Switch>
-        {/* </div> */}
       </div>
     </Router>
   );

@@ -272,6 +272,7 @@ const TaskItem = ({ listId, taskId, task }) => {
 };
 
 const AddTask = ({ parentListId }) => {
+  const token = useSelector((state) => state.auth.token);
   const dispatch = useDispatch();
   const [text, setText] = useState("");
 
@@ -302,8 +303,20 @@ const AddTask = ({ parentListId }) => {
   useEffect(() => {
     const handleEnterkey = (e) => {
       if (e.key === "Enter") {
+        // dispatch(
+        //   actions.addTask(
+        //     nanoid(),
+        //     text,
+        //     parentListId,
+        //     Date.now(),
+        //     addedToMyDay,
+        //     Important,
+        //     Planned
+        //   )
+        // );
         dispatch(
-          actions.addTask(
+          actions.addTaskOnDB(
+            token,
             nanoid(),
             text,
             parentListId,
@@ -329,7 +342,7 @@ const AddTask = ({ parentListId }) => {
           .removeEventListener("keypress", handleEnterkey);
       }
     };
-  }, [dispatch, text, parentListId, addedToMyDay, Important, Planned]);
+  }, [dispatch, text, parentListId, addedToMyDay, Important, Planned, token]);
 
   return (
     <div className="task-item-body add-task-body">

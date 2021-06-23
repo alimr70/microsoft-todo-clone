@@ -211,13 +211,15 @@ const Step = ({ step }) => {
 };
 
 const AddStep = ({ parentTaskId }) => {
+  const token = useSelector((state) => state.auth.token);
   const dispatch = useDispatch();
-  const [text, setText] = useState();
+  const [text, setText] = useState("");
 
   useEffect(() => {
     const handleEnterkey = (e) => {
       if (e.key === "Enter") {
-        dispatch(actions.addStep(parentTaskId, nanoid(), text));
+        // dispatch(actions.addStep(parentTaskId, nanoid(), text));
+        dispatch(actions.addStepOnDB(token, parentTaskId, nanoid(), text));
         setText("");
       }
     };
@@ -234,7 +236,7 @@ const AddStep = ({ parentTaskId }) => {
           .removeEventListener("keypress", handleEnterkey);
       }
     };
-  }, [dispatch, text, parentTaskId]);
+  }, [dispatch, text, parentTaskId, token]);
 
   return (
     <div className="task-item-body add-task-body add-step-body">

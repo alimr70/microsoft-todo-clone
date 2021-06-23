@@ -5,7 +5,6 @@ const initState = {
     {
       id: "1",
       title: "Getting Started",
-      group: 1,
     },
   ],
   Tasks: [
@@ -32,7 +31,9 @@ const initState = {
 
 const TasksSchema = new mongoose.Schema({
   _user: { type: mongoose.Schema.Types.ObjectId, ref: "User" },
-  state: { type: JSON, default: JSON.stringify(initState) },
+  lists: { type: JSON, default: JSON.stringify(initState.Lists) },
+  tasks: { type: JSON, default: JSON.stringify(initState.Tasks) },
+  steps: { type: JSON, default: JSON.stringify(initState.Steps) },
 });
 
 module.exports = mongoose.model("Tasks", TasksSchema);

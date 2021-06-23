@@ -92,7 +92,7 @@ export const getUserData = (token) => async (dispatch) => {
   try {
     const res = await axios({
       method: "get",
-      url: `/todo/getTasks`,
+      url: `/todo/getState`,
       headers: {
         Authorization: `Bearer ${token}`,
       },
@@ -100,7 +100,7 @@ export const getUserData = (token) => async (dispatch) => {
     });
 
     if (res.data) {
-      const state = res.data.state;
+      const state = res.data;
       dispatch(setLoadedListsState(state.Lists));
       dispatch(setLoadedTasksState(state.Tasks));
       dispatch(setLoadedStepsState(state.Steps));
@@ -177,6 +177,35 @@ const setLoadedListsState = (Lists) => {
   };
 };
 
+export const addListOnDB = (token, id, title) => async (dispatch) => {
+  try {
+    let data = {
+      list: {
+        id,
+        title,
+      },
+    };
+
+    let config = {
+      method: "post",
+      url: "/todo/addList",
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+      withCredentials: true,
+      data,
+    };
+
+    const res = await axios(config);
+
+    if (res.status === 200) {
+      dispatch(getUserData(token));
+    }
+  } catch (err) {
+    console.log(err);
+  }
+};
+
 export const addList = (id, title) => {
   return {
     type: "ADD_LIST",
@@ -207,6 +236,51 @@ const setLoadedTasksState = (Tasks) => {
     payload: { Tasks },
   };
 };
+
+export const addTaskOnDB =
+  (
+    token,
+    id,
+    title,
+    parentListId,
+    createdAt,
+    addedToMyDay,
+    Important,
+    Planned
+  ) =>
+  async (dispatch) => {
+    try {
+      let data = {
+        task: {
+          id,
+          title,
+          parentListId,
+          createdAt,
+          addedToMyDay,
+          Important,
+          Planned,
+        },
+      };
+
+      let config = {
+        method: "post",
+        url: "/todo/addTask",
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+        withCredentials: true,
+        data,
+      };
+
+      const res = await axios(config);
+
+      if (res.status === 200) {
+        dispatch(getUserData(token));
+      }
+    } catch (err) {
+      console.log(err);
+    }
+  };
 
 export const addTask = (
   id,
@@ -300,6 +374,33 @@ const setLoadedStepsState = (Steps) => {
     payload: { Steps },
   };
 };
+
+export const addStepOnDB =
+  (token, parentTaskId, id, title) => async (dispatch) => {
+    try {
+      let data = {
+        step: { parentTaskId, id, title },
+      };
+
+      let config = {
+        method: "post",
+        url: "/todo/addStep",
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+        withCredentials: true,
+        data,
+      };
+
+      const res = await axios(config);
+
+      if (res.status === 200) {
+        dispatch(getUserData(token));
+      }
+    } catch (err) {
+      console.log(err);
+    }
+  };
 
 export const addStep = (parentTaskId, id, title) => {
   return {

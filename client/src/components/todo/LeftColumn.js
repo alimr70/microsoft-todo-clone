@@ -132,13 +132,15 @@ const getActiveTaskCount = (listId, tasks) => {
 };
 
 const AddList = () => {
+  const token = useSelector((state) => state.auth.token);
   const dispatch = useDispatch();
   const [text, setText] = useState("");
 
   useEffect(() => {
     const handleEnterkey = (e) => {
       if (e.key === "Enter") {
-        dispatch(actions.addList(nanoid(), text));
+        // dispatch(actions.addList(nanoid(), text));
+        dispatch(actions.addListOnDB(token, nanoid(), text));
         setText("");
       }
     };
@@ -153,7 +155,7 @@ const AddList = () => {
         .getElementById("addList")
         .removeEventListener("keypress", handleEnterkey);
     };
-  }, [dispatch, text]);
+  }, [dispatch, text, token]);
 
   return (
     <div className="add-list-and-group">

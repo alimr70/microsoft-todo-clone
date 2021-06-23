@@ -1,8 +1,7 @@
 {
   "Lists": [{
     "id": "1",
-    "title": "Getting Started",
-    "group": 1
+    "title": "Getting Started"
   }],
   "Tasks": [{
     "id": "1",
