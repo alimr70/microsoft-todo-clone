@@ -29,6 +29,9 @@
 - ✅ Add functionality of sending user data when the list is added
 - ✅ Add functionality of sending user data when the task is added
 - ✅ Add functionality of sending user data when the step is added
+- ❌ Add functionality of sending user data when the list is edited
+- ❌ Add functionality of sending user data when the task is edited
+- ❌ Add functionality of sending user data when the step is edited
 - ❌ Restrict unauthenticated user reaching route '/todo'
 
 ## Back-End
@@ -38,3 +41,6 @@
 - ✅ Create an api end point for saving user's list
 - ✅ Create an api end point for saving user's task
 - ✅ Create an api end point for saving user's step
+- ❌ Create an api end point for saving user's list when it is edited
+- ❌ Create an api end point for saving user's task when it is edited
+- ❌ Create an api end point for saving user's step when it is edited

@@ -22,6 +22,7 @@ router.get("/getState", authMiddleware, async (req, res) => {
       Steps: JSON.parse(user.tasks.steps),
     });
   } catch (err) {
+    console.log(err);
     res.status(500).json({ msg: "Something went wrong", err: err });
   }
 });
@@ -29,13 +30,18 @@ router.get("/getState", authMiddleware, async (req, res) => {
 router.post("/addList", authMiddleware, async (req, res) => {
   try {
     const newList = req.body.list;
-    const user = await User.findOne({ id: req.user.id });
-    const userTasks = await Tasks.findById(user.tasks);
-    const lists = await JSON.parse(userTasks.lists);
-    const updatedTasks = await userTasks.updateOne({
-      lists: JSON.stringify([...lists, newList]),
-    });
-    if (updatedTasks.ok === 1) {
+    const user = await User.findOne({ id: req.user.id }).populate(
+      "tasks",
+      "lists"
+    );
+    const lists = await JSON.parse(user.tasks.lists);
+    lists.push(newList);
+    const updated = await Tasks.findOneAndUpdate(
+      { _id: user.tasks._id },
+      { lists: JSON.stringify(lists) },
+      { rawResult: true }
+    );
+    if (updated.lastErrorObject.updatedExisting) {
       res.status(200).json({ msg: "Lists updated" });
     }
   } catch (err) {
@@ -47,13 +53,18 @@ router.post("/addList", authMiddleware, async (req, res) => {
 router.post("/addTask", authMiddleware, async (req, res) => {
   try {
     const newTask = req.body.task;
-    const user = await User.findOne({ id: req.user.id });
-    const userTasks = await Tasks.findById(user.tasks);
-    const tasks = await JSON.parse(userTasks.tasks);
-    const updatedTasks = await userTasks.updateOne({
-      tasks: JSON.stringify([...tasks, newTask]),
-    });
-    if (updatedTasks.ok === 1) {
+    const user = await User.findOne({ id: req.user.id }).populate(
+      "tasks",
+      "tasks"
+    );
+    const tasks = await JSON.parse(user.tasks.tasks);
+    tasks.push(newTask);
+    const updated = await Tasks.findOneAndUpdate(
+      { _id: user.tasks._id },
+      { tasks: JSON.stringify(tasks) },
+      { rawResult: true }
+    );
+    if (updated.lastErrorObject.updatedExisting) {
       res.status(200).json({ msg: "Tasks updated" });
     }
   } catch (err) {
@@ -65,13 +76,18 @@ router.post("/addTask", authMiddleware, async (req, res) => {
 router.post("/addStep", authMiddleware, async (req, res) => {
   try {
     const newStep = req.body.step;
-    const user = await User.findOne({ id: req.user.id });
-    const userTasks = await Tasks.findById(user.tasks);
-    const steps = await JSON.parse(userTasks.steps);
-    const updatedTasks = await userTasks.updateOne({
-      steps: JSON.stringify([...steps, newStep]),
-    });
-    if (updatedTasks.ok === 1) {
+    const user = await User.findOne({ id: req.user.id }).populate(
+      "tasks",
+      "steps"
+    );
+    const steps = await JSON.parse(user.tasks.steps);
+    steps.push(newStep);
+    const updated = await Tasks.findOneAndUpdate(
+      { _id: user.tasks._id },
+      { steps: JSON.stringify(steps) },
+      { rawResult: true }
+    );
+    if (updated.lastErrorObject.updatedExisting) {
       res.status(200).json({ msg: "Steps updated" });
     }
   } catch (err) {
@@ -79,5 +95,7 @@ router.post("/addStep", authMiddleware, async (req, res) => {
     res.status(500).json({ msg: "Something went wrong", err: err });
   }
 });
+
+router.post("/editList", authMiddleware, (req, res) => {});
 
 module.exports = router;
