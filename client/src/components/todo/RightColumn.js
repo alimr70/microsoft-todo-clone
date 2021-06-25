@@ -39,6 +39,7 @@ const RightColumn = () => {
 };
 
 const TaskDetailsHeader = ({ task }) => {
+  const token = useSelector((state) => state.auth.token);
   const dispatch = useDispatch();
   const [isEditing, setIsEditing] = useState(false);
   const [text, setText] = useState("");
@@ -49,7 +50,8 @@ const TaskDetailsHeader = ({ task }) => {
   useEffect(() => {
     const handleEnterkey = (e) => {
       if (e.key === "Enter") {
-        dispatch(actions.editTaskTitle(task.id, text));
+        // dispatch(actions.editTaskTitle(task.id, text));
+        dispatch(actions.editTaskTitleOnDB(token, task.id, text));
         setIsEditing(false);
       }
     };
@@ -66,7 +68,7 @@ const TaskDetailsHeader = ({ task }) => {
           .removeEventListener("keypress", handleEnterkey);
       }
     };
-  }, [dispatch, task.id, text, isEditing]);
+  }, [dispatch, task.id, text, isEditing, token]);
 
   return (
     <div className="task-detail-header">
@@ -133,6 +135,7 @@ const CurrentTaskSteps = ({ stepArr }) => {
 };
 
 const Step = ({ step }) => {
+  const token = useSelector((state) => state.auth.token);
   const dispatch = useDispatch();
   const [isEditing, setIsEditing] = useState(false);
   const [text, setText] = useState("");
@@ -143,7 +146,8 @@ const Step = ({ step }) => {
   useEffect(() => {
     const handleEnterkey = (e) => {
       if (e.key === "Enter") {
-        dispatch(actions.editStepTitle(step.id, text));
+        // dispatch(actions.editStepTitle(step.id, text));
+        dispatch(actions.editStepTitleOnDB(token, step.id, text));
         setIsEditing(false);
       }
     };
@@ -160,7 +164,7 @@ const Step = ({ step }) => {
           .removeEventListener("keypress", handleEnterkey);
       }
     };
-  }, [dispatch, step.id, text, isEditing]);
+  }, [dispatch, step.id, text, isEditing, token]);
 
   return (
     <div key={step.id} className="task-item-body task-detail-title step">

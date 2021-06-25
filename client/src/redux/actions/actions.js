@@ -216,6 +216,35 @@ export const addList = (id, title) => {
   };
 };
 
+export const editListTitleOnDB = (token, id, title) => async (dispatch) => {
+  try {
+    let data = {
+      list: {
+        id,
+        title,
+      },
+    };
+
+    let config = {
+      method: "post",
+      url: "/todo/editList",
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+      withCredentials: true,
+      data,
+    };
+
+    const res = await axios(config);
+
+    if (res.status === 200) {
+      dispatch(getUserData(token));
+    }
+  } catch (err) {
+    console.log(err);
+  }
+};
+
 export const editListTitle = (id, title) => {
   return {
     type: "EDIT_LIST_TITLE",
@@ -313,6 +342,35 @@ export const checkTask = (id, isChecked) => {
       isChecked,
     },
   };
+};
+
+export const editTaskTitleOnDB = (token, id, title) => async (dispatch) => {
+  try {
+    let data = {
+      task: {
+        id,
+        title,
+      },
+    };
+
+    let config = {
+      method: "post",
+      url: "/todo/editTask",
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+      withCredentials: true,
+      data,
+    };
+
+    const res = await axios(config);
+
+    if (res.status === 200) {
+      dispatch(getUserData(token));
+    }
+  } catch (err) {
+    console.log(err);
+  }
 };
 
 export const editTaskTitle = (id, title) => {
@@ -421,6 +479,35 @@ export const checkStep = (id, isChecked) => {
       isChecked,
     },
   };
+};
+
+export const editStepTitleOnDB = (token, id, title) => async (dispatch) => {
+  try {
+    let data = {
+      step: {
+        id,
+        title,
+      },
+    };
+
+    let config = {
+      method: "post",
+      url: "/todo/editStep",
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+      withCredentials: true,
+      data,
+    };
+
+    const res = await axios(config);
+
+    if (res.status === 200) {
+      dispatch(getUserData(token));
+    }
+  } catch (err) {
+    console.log(err);
+  }
 };
 
 export const editStepTitle = (id, title) => {

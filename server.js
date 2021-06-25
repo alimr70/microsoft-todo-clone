@@ -83,6 +83,11 @@ if (process.env.NODE_ENV === "production") {
   });
 }
 
+// Handle global errors
+app.use((err, req, res, next) => {
+  console.log(err);
+});
+
 // Initialize server
 const PORT = process.env.PORT || 8080;
 

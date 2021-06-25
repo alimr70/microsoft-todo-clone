@@ -58,8 +58,14 @@ const App = () => {
             )}
           </Route>
           <Route path={`${process.env.PUBLIC_URL}/todo`}>
-            <Todo />
-            <Redirect to={`${process.env.PUBLIC_URL}/todo/Tasks`} />
+            {isAuthenticated ? (
+              <>
+                <Todo />
+                <Redirect to={`${process.env.PUBLIC_URL}/todo/Tasks`} />
+              </>
+            ) : (
+              <Redirect to={`${process.env.PUBLIC_URL}/login`} />
+            )}
           </Route>
         </Switch>
       </div>

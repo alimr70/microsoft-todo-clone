@@ -22,6 +22,13 @@ const HomePage = () => {
             <div
               className="social-button"
               onClick={() => {
+                history.push("/todo");
+              }}>
+              <p className="social-title">Open To Do App</p>
+            </div>
+            <div
+              className="social-button"
+              onClick={() => {
                 history.push("/profile");
               }}>
               <p className="social-title">Visit your profile</p>

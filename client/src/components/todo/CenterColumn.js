@@ -101,6 +101,7 @@ const Overlay = () => {
 };
 
 const TaskHeader = ({ listId, listTitle }) => {
+  const token = useSelector((state) => state.auth.token);
   const dispatch = useDispatch();
   const [isEditing, setIsEditing] = useState(false);
   const [text, setText] = useState("");
@@ -108,7 +109,8 @@ const TaskHeader = ({ listId, listTitle }) => {
   useEffect(() => {
     const handleEnterkey = (e) => {
       if (e.key === "Enter") {
-        dispatch(actions.editListTitle(listId, text));
+        // dispatch(actions.editListTitle(listId, text));
+        dispatch(actions.editListTitleOnDB(token, listId, text));
         setIsEditing(false);
       }
     };
@@ -125,7 +127,7 @@ const TaskHeader = ({ listId, listTitle }) => {
           .removeEventListener("keypress", handleEnterkey);
       }
     };
-  }, [dispatch, listId, text, isEditing]);
+  }, [dispatch, listId, text, isEditing, token]);
 
   return (
     <div className="tasks-toolbar">
