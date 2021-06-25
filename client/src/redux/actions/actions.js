@@ -412,6 +412,35 @@ export const editTaskTitle = (id, title) => {
   };
 };
 
+export const addToMyDayOnDB = (token, id, addedToMyDay) => async (dispatch) => {
+  try {
+    let data = {
+      task: {
+        id,
+        addedToMyDay,
+      },
+    };
+
+    let config = {
+      method: "post",
+      url: "/todo/addToMyDay",
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+      withCredentials: true,
+      data,
+    };
+
+    const res = await axios(config);
+
+    if (res.status === 200) {
+      dispatch(getUserData(token));
+    }
+  } catch (err) {
+    console.log(err);
+  }
+};
+
 export const addToMyDay = (id, addedToMyDay) => {
   return {
     type: "ADD_TO_MY_DAY",
@@ -420,6 +449,35 @@ export const addToMyDay = (id, addedToMyDay) => {
       addedToMyDay,
     },
   };
+};
+
+export const dueDateOnDB = (token, id, Planned) => async (dispatch) => {
+  try {
+    let data = {
+      task: {
+        id,
+        Planned,
+      },
+    };
+
+    let config = {
+      method: "post",
+      url: "/todo/dueDate",
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+      withCredentials: true,
+      data,
+    };
+
+    const res = await axios(config);
+
+    if (res.status === 200) {
+      dispatch(getUserData(token));
+    }
+  } catch (err) {
+    console.log(err);
+  }
 };
 
 export const dueDate = (id, Planned) => {
@@ -432,6 +490,35 @@ export const dueDate = (id, Planned) => {
   };
 };
 
+export const importantOnDB = (token, id, Important) => async (dispatch) => {
+  try {
+    let data = {
+      task: {
+        id,
+        Important,
+      },
+    };
+
+    let config = {
+      method: "post",
+      url: "/todo/important",
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+      withCredentials: true,
+      data,
+    };
+
+    const res = await axios(config);
+
+    if (res.status === 200) {
+      dispatch(getUserData(token));
+    }
+  } catch (err) {
+    console.log(err);
+  }
+};
+
 export const important = (id, Important) => {
   return {
     type: "IMPORTANT_TASK",
@@ -440,6 +527,34 @@ export const important = (id, Important) => {
       Important,
     },
   };
+};
+
+export const deleteTaskOnDB = (token, id) => async (dispatch) => {
+  try {
+    let data = {
+      task: {
+        id,
+      },
+    };
+
+    let config = {
+      method: "post",
+      url: "/todo/deleteTask",
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+      withCredentials: true,
+      data,
+    };
+
+    const res = await axios(config);
+
+    if (res.status === 200) {
+      dispatch(getUserData(token));
+    }
+  } catch (err) {
+    console.log(err);
+  }
 };
 
 export const deleteTask = (id) => {

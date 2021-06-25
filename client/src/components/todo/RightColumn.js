@@ -275,6 +275,7 @@ const AddStep = ({ parentTaskId }) => {
 };
 
 const AddToMyDay = ({ parentTaskId }) => {
+  const token = useSelector((state) => state.auth.token);
   const dispatch = useDispatch();
   return (
     <div className="detailbar-item">
@@ -287,7 +288,8 @@ const AddToMyDay = ({ parentTaskId }) => {
         <div
           className="toolbar-title"
           onClick={() => {
-            dispatch(actions.addToMyDay(parentTaskId, Date.now()));
+            // dispatch(actions.addToMyDay(parentTaskId, Date.now()));
+            dispatch(actions.addToMyDayOnDB(token, parentTaskId, Date.now()));
           }}>
           <span>Add To My Day</span>
         </div>
@@ -297,6 +299,7 @@ const AddToMyDay = ({ parentTaskId }) => {
 };
 
 const DueDate = ({ task }) => {
+  const token = useSelector((state) => state.auth.token);
   const dispatch = useDispatch();
   return (
     <div className="detailbar-item input-container">
@@ -321,7 +324,10 @@ const DueDate = ({ task }) => {
           className="datepicker-input"
           id="datepicker-input"
           onChange={(e) => {
-            dispatch(actions.dueDate(task.id, e.target.valueAsNumber));
+            // dispatch(actions.dueDate(task.id, e.target.valueAsNumber));
+            dispatch(
+              actions.dueDateOnDB(token, task.id, e.target.valueAsNumber)
+            );
           }}
         />
       </div>
@@ -341,6 +347,7 @@ const DueDate = ({ task }) => {
 };
 
 const RightColumnFooter = ({ currentTaskDate, taskId }) => {
+  const token = useSelector((state) => state.auth.token);
   const { listId } = useParams();
   const dispatch = useDispatch();
   return (
@@ -370,7 +377,8 @@ const RightColumnFooter = ({ currentTaskDate, taskId }) => {
           <div
             className="add-group detail-delete"
             onClick={() => {
-              dispatch(actions.deleteTask(taskId));
+              // dispatch(actions.deleteTask(taskId));
+              dispatch(actions.deleteTaskOnDB(token, taskId));
             }}>
             <button className="btn">
               <i className="icon">

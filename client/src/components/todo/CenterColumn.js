@@ -263,7 +263,8 @@ const TaskItem = ({ listId, taskId, task }) => {
       <div
         className="task-item-checkbox"
         onClick={() => {
-          dispatch(actions.important(taskId, !task.Important));
+          // dispatch(actions.important(taskId, !task.Important));
+          dispatch(actions.importantOnDB(token, taskId, !task.Important));
         }}>
         <span className="checkbox">
           <i className="icon">

@@ -216,4 +216,99 @@ router.post("/checkStep", authMiddleware, async (req, res) => {
   }
 });
 
+router.post("/addToMyDay", authMiddleware, async (req, res) => {
+  try {
+    const addToMyDayTask = req.body.task;
+    const user = await User.findOne({ id: req.user.id }).populate(
+      "tasks",
+      "tasks"
+    );
+    const tasks = await JSON.parse(user.tasks.tasks);
+    const oldTask = tasks.find((task) => task.id === addToMyDayTask.id);
+    oldTask.addedToMyDay = addToMyDayTask.addedToMyDay;
+    const updated = await Tasks.findOneAndUpdate(
+      { _id: user.tasks._id },
+      { tasks: JSON.stringify(tasks) },
+      { rawResult: true }
+    );
+    if (updated.lastErrorObject.updatedExisting) {
+      res.status(200).json({ msg: "Tasks updated" });
+    }
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ msg: "Something went wrong", err: err });
+  }
+});
+
+router.post("/dueDate", authMiddleware, async (req, res) => {
+  try {
+    const dueDateTask = req.body.task;
+    const user = await User.findOne({ id: req.user.id }).populate(
+      "tasks",
+      "tasks"
+    );
+    const tasks = await JSON.parse(user.tasks.tasks);
+    const oldTask = tasks.find((task) => task.id === dueDateTask.id);
+    oldTask.Planned = dueDateTask.Planned;
+    const updated = await Tasks.findOneAndUpdate(
+      { _id: user.tasks._id },
+      { tasks: JSON.stringify(tasks) },
+      { rawResult: true }
+    );
+    if (updated.lastErrorObject.updatedExisting) {
+      res.status(200).json({ msg: "Tasks updated" });
+    }
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ msg: "Something went wrong", err: err });
+  }
+});
+
+router.post("/important", authMiddleware, async (req, res) => {
+  try {
+    const importantTask = req.body.task;
+    const user = await User.findOne({ id: req.user.id }).populate(
+      "tasks",
+      "tasks"
+    );
+    const tasks = await JSON.parse(user.tasks.tasks);
+    const oldTask = tasks.find((task) => task.id === importantTask.id);
+    oldTask.Important = importantTask.Important;
+    const updated = await Tasks.findOneAndUpdate(
+      { _id: user.tasks._id },
+      { tasks: JSON.stringify(tasks) },
+      { rawResult: true }
+    );
+    if (updated.lastErrorObject.updatedExisting) {
+      res.status(200).json({ msg: "Tasks updated" });
+    }
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ msg: "Something went wrong", err: err });
+  }
+});
+
+router.post("/deleteTask", authMiddleware, async (req, res) => {
+  try {
+    const deletedTask = req.body.task;
+    const user = await User.findOne({ id: req.user.id }).populate(
+      "tasks",
+      "tasks"
+    );
+    const tasks = await JSON.parse(user.tasks.tasks);
+    const newTasks = tasks.filter((task) => task.id !== deletedTask.id);
+    const updated = await Tasks.findOneAndUpdate(
+      { _id: user.tasks._id },
+      { tasks: JSON.stringify(newTasks) },
+      { rawResult: true }
+    );
+    if (updated.lastErrorObject.updatedExisting) {
+      res.status(200).json({ msg: "Tasks updated" });
+    }
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ msg: "Something went wrong", err: err });
+  }
+});
+
 module.exports = router;
