@@ -75,7 +75,8 @@ const TaskDetailsHeader = ({ task }) => {
       <div
         className="task-item-checkbox"
         onClick={() => {
-          dispatch(actions.checkTask(task.id, !task.isChecked));
+          // dispatch(actions.checkTask(task.id, !task.isChecked));
+          dispatch(actions.checkTaskOnDB(token, task.id, !task.isChecked));
         }}>
         <span className="checkbox">
           <i className="icon">
@@ -171,7 +172,8 @@ const Step = ({ step }) => {
       <div
         className="task-item-checkbox"
         onClick={() => {
-          dispatch(actions.checkStep(step.id, !step.isChecked));
+          // dispatch(actions.checkStep(step.id, !step.isChecked));
+          dispatch(actions.checkStepOnDB(token, step.id, !step.isChecked));
         }}>
         <span className="checkbox">
           <i className="icon">

@@ -32,6 +32,12 @@
 - ✅ Add functionality of sending user data when the list is edited
 - ✅ Add functionality of sending user data when the task is edited
 - ✅ Add functionality of sending user data when the step is edited
+- ✅ Add functionality of sending user data when the task is checked
+- ✅ Add functionality of sending user data when the step is checked
+- ❌ Add functionality of sending user data when the task is addToMyDay
+- ❌ Add functionality of sending user data when the task is dueDate
+- ❌ Add functionality of sending user data when the task is important
+- ❌ Add functionality of sending user data when the task is deleted
 - ❌ Restrict unauthenticated user reaching route '/todo'
 
 ## Back-End
@@ -44,3 +50,9 @@
 - ✅ Create an api end point for saving user's list when it is edited
 - ✅ Create an api end point for saving user's task when it is edited
 - ✅ Create an api end point for saving user's step when it is edited
+- ✅ Create an api end point for saving user's task when it is checked
+- ✅ Create an api end point for saving user's step when it is checked
+- ❌ Create an api end point for saving user's task when it is addToMyDay
+- ❌ Create an api end point for saving user's task when it is dueDate
+- ❌ Create an api end point for saving user's task when it is important
+- ❌ Create an api end point for saving user's task when it is deleted

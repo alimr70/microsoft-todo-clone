@@ -334,6 +334,35 @@ export const addTask = (
   };
 };
 
+export const checkTaskOnDB = (token, id, isChecked) => async (dispatch) => {
+  try {
+    let data = {
+      task: {
+        id,
+        isChecked,
+      },
+    };
+
+    let config = {
+      method: "post",
+      url: "/todo/checkTask",
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+      withCredentials: true,
+      data,
+    };
+
+    const res = await axios(config);
+
+    if (res.status === 200) {
+      dispatch(getUserData(token));
+    }
+  } catch (err) {
+    console.log(err);
+  }
+};
+
 export const checkTask = (id, isChecked) => {
   return {
     type: "CHECK_TASK",
@@ -469,6 +498,35 @@ export const addStep = (parentTaskId, id, title) => {
       title,
     },
   };
+};
+
+export const checkStepOnDB = (token, id, isChecked) => async (dispatch) => {
+  try {
+    let data = {
+      step: {
+        id,
+        isChecked,
+      },
+    };
+
+    let config = {
+      method: "post",
+      url: "/todo/checkStep",
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+      withCredentials: true,
+      data,
+    };
+
+    const res = await axios(config);
+
+    if (res.status === 200) {
+      dispatch(getUserData(token));
+    }
+  } catch (err) {
+    console.log(err);
+  }
 };
 
 export const checkStep = (id, isChecked) => {

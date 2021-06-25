@@ -168,4 +168,52 @@ router.post("/editStep", authMiddleware, async (req, res) => {
   }
 });
 
+router.post("/checkTask", authMiddleware, async (req, res) => {
+  try {
+    const checkedTask = req.body.task;
+    const user = await User.findOne({ id: req.user.id }).populate(
+      "tasks",
+      "tasks"
+    );
+    const tasks = await JSON.parse(user.tasks.tasks);
+    const oldTask = tasks.find((task) => task.id === checkedTask.id);
+    oldTask.isChecked = checkedTask.isChecked;
+    const updated = await Tasks.findOneAndUpdate(
+      { _id: user.tasks._id },
+      { tasks: JSON.stringify(tasks) },
+      { rawResult: true }
+    );
+    if (updated.lastErrorObject.updatedExisting) {
+      res.status(200).json({ msg: "Tasks updated" });
+    }
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ msg: "Something went wrong", err: err });
+  }
+});
+
+router.post("/checkStep", authMiddleware, async (req, res) => {
+  try {
+    const checkedStep = req.body.step;
+    const user = await User.findOne({ id: req.user.id }).populate(
+      "tasks",
+      "steps"
+    );
+    const steps = await JSON.parse(user.tasks.steps);
+    const oldStep = steps.find((step) => step.id === checkedStep.id);
+    oldStep.isChecked = checkedStep.isChecked;
+    const updated = await Tasks.findOneAndUpdate(
+      { _id: user.tasks._id },
+      { steps: JSON.stringify(steps) },
+      { rawResult: true }
+    );
+    if (updated.lastErrorObject.updatedExisting) {
+      res.status(200).json({ msg: "Steps updated" });
+    }
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ msg: "Something went wrong", err: err });
+  }
+});
+
 module.exports = router;

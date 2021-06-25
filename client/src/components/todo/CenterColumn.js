@@ -220,6 +220,7 @@ const CurrentListTasks = ({ listId, taskArr }) => {
 };
 
 const TaskItem = ({ listId, taskId, task }) => {
+  const token = useSelector((state) => state.auth.token);
   const dispatch = useDispatch();
   const isChecked = task.isChecked
     ? `${process.env.PUBLIC_URL}/img/checkbox-checked-icon.svg`
@@ -235,7 +236,8 @@ const TaskItem = ({ listId, taskId, task }) => {
       <div
         className="task-item-checkbox"
         onClick={() => {
-          dispatch(actions.checkTask(taskId, !task.isChecked));
+          // dispatch(actions.checkTask(taskId, !task.isChecked));
+          dispatch(actions.checkTaskOnDB(token, taskId, !task.isChecked));
         }}>
         <span className="checkbox">
           <i className="icon">
