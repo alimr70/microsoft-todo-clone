@@ -37,8 +37,15 @@
 - ✅ Add functionality of sending user data when the task is addToMyDay
 - ✅ Add functionality of sending user data when the task is dueDate
 - ✅ Add functionality of sending user data when the task is important
+- ✅ Add functionality of deleting List
+- ✅ Add functionality of sending user data when the List is deleted
 - ✅ Add functionality of sending user data when the task is deleted
-- ❌ Restrict unauthenticated user reaching route '/todo'
+- ✅ Add functionality of deleting Step
+- ✅ Add functionality of sending user data when the Step is deleted
+- ✅ Restrict unauthenticated user reaching route '/todo'
+- ❌ Refactor: Make a single action for adding list/task/step
+- ❌ Refactor: Make a single action for editing list/task/step
+- ❌ Refactor: Make a single action for task functionalities
 
 ## Back-End
 
@@ -55,4 +62,9 @@
 - ✅ Create an api end point for saving user's task when it is addToMyDay
 - ✅ Create an api end point for saving user's task when it is dueDate
 - ✅ Create an api end point for saving user's task when it is important
+- ✅ Create an api end point for saving user's list when it is deleted
 - ✅ Create an api end point for saving user's task when it is deleted
+- ✅ Create an api end point for saving user's step when it is deleted
+- ❌ Refactor: Make a single api end point for adding list/task/step
+- ❌ Refactor: Make a single api end point for editing list/task/step
+- ❌ Refactor: Make a single api end point for task functionalities

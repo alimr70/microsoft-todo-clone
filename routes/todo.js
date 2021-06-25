@@ -288,6 +288,29 @@ router.post("/important", authMiddleware, async (req, res) => {
   }
 });
 
+router.post("/deleteList", authMiddleware, async (req, res) => {
+  try {
+    const deletedList = req.body.list;
+    const user = await User.findOne({ id: req.user.id }).populate(
+      "tasks",
+      "lists"
+    );
+    const lists = await JSON.parse(user.tasks.lists);
+    const newLists = lists.filter((list) => list.id !== deletedList.id);
+    const updated = await Tasks.findOneAndUpdate(
+      { _id: user.tasks._id },
+      { lists: JSON.stringify(newLists) },
+      { rawResult: true }
+    );
+    if (updated.lastErrorObject.updatedExisting) {
+      res.status(200).json({ msg: "Lists updated" });
+    }
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ msg: "Something went wrong", err: err });
+  }
+});
+
 router.post("/deleteTask", authMiddleware, async (req, res) => {
   try {
     const deletedTask = req.body.task;
@@ -304,6 +327,29 @@ router.post("/deleteTask", authMiddleware, async (req, res) => {
     );
     if (updated.lastErrorObject.updatedExisting) {
       res.status(200).json({ msg: "Tasks updated" });
+    }
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ msg: "Something went wrong", err: err });
+  }
+});
+
+router.post("/deleteStep", authMiddleware, async (req, res) => {
+  try {
+    const deletedStep = req.body.step;
+    const user = await User.findOne({ id: req.user.id }).populate(
+      "tasks",
+      "steps"
+    );
+    const steps = await JSON.parse(user.tasks.steps);
+    const newSteps = steps.filter((step) => step.id !== deletedStep.id);
+    const updated = await Tasks.findOneAndUpdate(
+      { _id: user.tasks._id },
+      { steps: JSON.stringify(newSteps) },
+      { rawResult: true }
+    );
+    if (updated.lastErrorObject.updatedExisting) {
+      res.status(200).json({ msg: "Steps updated" });
     }
   } catch (err) {
     console.error(err);

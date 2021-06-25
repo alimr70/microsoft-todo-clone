@@ -255,6 +255,43 @@ export const editListTitle = (id, title) => {
   };
 };
 
+export const deleteListOnDB = (token, id) => async (dispatch) => {
+  try {
+    let data = {
+      list: {
+        id,
+      },
+    };
+
+    let config = {
+      method: "post",
+      url: "/todo/deleteList",
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+      withCredentials: true,
+      data,
+    };
+
+    const res = await axios(config);
+
+    if (res.status === 200) {
+      dispatch(getUserData(token));
+    }
+  } catch (err) {
+    console.log(err);
+  }
+};
+
+export const deleteList = (id) => {
+  return {
+    type: "DELETE_LIST",
+    payload: {
+      id,
+    },
+  };
+};
+
 /**
  * Tasks actions
  */
@@ -689,6 +726,43 @@ export const editStepTitle = (id, title) => {
     payload: {
       id,
       title,
+    },
+  };
+};
+
+export const deleteStepOnDB = (token, id) => async (dispatch) => {
+  try {
+    let data = {
+      step: {
+        id,
+      },
+    };
+
+    let config = {
+      method: "post",
+      url: "/todo/deleteStep",
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+      withCredentials: true,
+      data,
+    };
+
+    const res = await axios(config);
+
+    if (res.status === 200) {
+      dispatch(getUserData(token));
+    }
+  } catch (err) {
+    console.log(err);
+  }
+};
+
+export const deleteStep = (id) => {
+  return {
+    type: "DELETE_STEP",
+    payload: {
+      id,
     },
   };
 };

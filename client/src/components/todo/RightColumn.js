@@ -5,6 +5,7 @@ import { useParams } from "react-router-dom";
 import { nanoid } from "nanoid";
 import * as actions from "../../redux/actions/actions";
 import { Link } from "react-router-dom";
+import { isToday } from "../../redux/utils/utils";
 
 const RightColumn = () => {
   let { taskId } = useParams();
@@ -27,7 +28,7 @@ const RightColumn = () => {
           <CurrentTaskSteps stepArr={stepArr} />
         </div>
         <AddStep parentTaskId={taskId} />
-        <AddToMyDay parentTaskId={taskId} />
+        <AddToMyDay task={targetTask} />
         <DueDate task={targetTask} />
         <RightColumnFooter
           currentTaskDate={new Date(targetTask.createdAt).toDateString()}
@@ -204,13 +205,25 @@ const Step = ({ step }) => {
           />
         </div>
       ) : (
-        <button
-          className="btn task-item-title editable-title"
-          onFocus={() => {
-            setIsEditing(true);
-          }}>
-          <span>{step.title}</span>
-        </button>
+        <>
+          <button
+            className="btn task-item-title editable-title"
+            onFocus={() => {
+              setIsEditing(true);
+            }}>
+            <span>{step.title}</span>
+          </button>
+          <button
+            className="return-to-null"
+            onClick={() => {
+              // dispatch(actions.deleteStep(step.id));
+              dispatch(actions.deleteStepOnDB(token, step.id));
+            }}>
+            <i className="icon">
+              <img src={`${process.env.PUBLIC_URL}/img/plus-icon.svg`} alt="" />
+            </i>
+          </button>
+        </>
       )}
     </div>
   );
@@ -250,7 +263,8 @@ const AddStep = ({ parentTaskId }) => {
         <button
           className="btn btn-no-hover"
           onClick={() => {
-            dispatch(actions.addStep(parentTaskId, nanoid(), text));
+            // dispatch(actions.addStep(parentTaskId, nanoid(), text));
+            dispatch(actions.addStepOnDB(token, parentTaskId, nanoid(), text));
             setText("");
           }}>
           <i className="icon">
@@ -274,8 +288,9 @@ const AddStep = ({ parentTaskId }) => {
   );
 };
 
-const AddToMyDay = ({ parentTaskId }) => {
+const AddToMyDay = ({ task }) => {
   const token = useSelector((state) => state.auth.token);
+  let { listId } = useParams();
   const dispatch = useDispatch();
   return (
     <div className="detailbar-item">
@@ -288,18 +303,36 @@ const AddToMyDay = ({ parentTaskId }) => {
         <div
           className="toolbar-title"
           onClick={() => {
-            // dispatch(actions.addToMyDay(parentTaskId, Date.now()));
-            dispatch(actions.addToMyDayOnDB(token, parentTaskId, Date.now()));
+            // dispatch(actions.addToMyDay(task.id, Date.now()));
+            dispatch(actions.addToMyDayOnDB(token, task.id, Date.now()));
           }}>
-          <span>Add To My Day</span>
+          {isToday(task.addedToMyDay) ? (
+            <span style={{ color: "lightblue" }}>Added To My Day</span>
+          ) : (
+            <span>Add To My Day</span>
+          )}
         </div>
       </div>
+      {isToday(task.addedToMyDay) ? (
+        <Link to={`/todo/${listId}`} className="Link">
+          <button
+            className="return-to-null"
+            onClick={() => {
+              dispatch(actions.addToMyDayOnDB(token, task.id, null));
+            }}>
+            <i className="icon">
+              <img src={`${process.env.PUBLIC_URL}/img/plus-icon.svg`} alt="" />
+            </i>
+          </button>
+        </Link>
+      ) : null}
     </div>
   );
 };
 
 const DueDate = ({ task }) => {
   const token = useSelector((state) => state.auth.token);
+  let { listId } = useParams();
   const dispatch = useDispatch();
   return (
     <div className="detailbar-item input-container">
@@ -332,15 +365,17 @@ const DueDate = ({ task }) => {
         />
       </div>
       {task.Planned !== null ? (
-        <button
-          className="return-to-null"
-          onClick={() => {
-            dispatch(actions.dueDate(task.id, null));
-          }}>
-          <i className="icon">
-            <img src={`${process.env.PUBLIC_URL}/img/plus-icon.svg`} alt="" />
-          </i>
-        </button>
+        <Link to={`/todo/${listId}`} className="Link">
+          <button
+            className="return-to-null"
+            onClick={() => {
+              dispatch(actions.dueDateOnDB(token, task.id, null));
+            }}>
+            <i className="icon">
+              <img src={`${process.env.PUBLIC_URL}/img/plus-icon.svg`} alt="" />
+            </i>
+          </button>
+        </Link>
       ) : null}
     </div>
   );

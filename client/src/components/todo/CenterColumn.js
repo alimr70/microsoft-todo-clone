@@ -162,13 +162,32 @@ const TaskHeader = ({ listId, listTitle }) => {
             />
           </div>
         ) : (
-          <button
-            className="btn task-item-title editable-title"
-            onFocus={() => {
-              setIsEditing(true);
-            }}>
-            <h1 className="list-title">{listTitle}</h1>
-          </button>
+          <>
+            <button
+              className="btn task-item-title editable-title"
+              onFocus={() => {
+                setIsEditing(true);
+              }}>
+              <h1 className="list-title">{listTitle}</h1>
+            </button>
+            <Link to={`/todo/Tasks`}>
+              <div
+                className="add-group detail-delete"
+                onClick={() => {
+                  // dispatch(actions.deleteList(listId));
+                  dispatch(actions.deleteListOnDB(token, listId));
+                }}>
+                <button className="btn">
+                  <i className="icon">
+                    <img
+                      src={`${process.env.PUBLIC_URL}/img/trash-icon.svg`}
+                      alt=""
+                    />
+                  </i>
+                </button>
+              </div>
+            </Link>
+          </>
         )}
       </div>
     </div>
@@ -355,7 +374,19 @@ const AddTask = ({ parentListId }) => {
         <button
           className="btn btn-no-hover"
           onClick={() => {
-            dispatch(actions.addTask(nanoid(), text, parentListId, Date.now()));
+            // dispatch(actions.addTask(nanoid(), text, parentListId, Date.now()));
+            dispatch(
+              actions.addTaskOnDB(
+                token,
+                nanoid(),
+                text,
+                parentListId,
+                Date.now(),
+                addedToMyDay,
+                Important,
+                Planned
+              )
+            );
             setText("");
           }}>
           <i className="icon">

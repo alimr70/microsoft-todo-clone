@@ -163,7 +163,8 @@ const AddList = () => {
         <button
           className="btn"
           onClick={() => {
-            dispatch(actions.addList(nanoid(), text));
+            // dispatch(actions.addList(nanoid(), text));
+            dispatch(actions.addListOnDB(token, nanoid(), text));
             setText("");
           }}>
           <i className="icon">
