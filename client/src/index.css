@@ -357,7 +357,7 @@ body {
   z-index: 1005;
 }
 
-.overlay-btn .icon {
+.overlay-btn .icon img {
   width: 48px;
   margin: 0 4px 4px 4px;
 }

@@ -40,24 +40,12 @@ const Overlay = () => {
   const isLeftColOpen = useSelector((state) => state.ui.isLeftColOpen);
   const isRightColOpen = useSelector((state) => state.ui.isRightColOpen);
 
-  const [showOverlay, setshowOverlay] = useState(false);
-  const [showBtn, setshowBtn] = useState(false);
+  const [screenWidth, setScreenWidth] = useState(
+    document.documentElement.clientWidth
+  );
   useEffect(() => {
     const handleWindowResize = () => {
-      if (document.documentElement.clientWidth < 1020) {
-        setshowOverlay(true);
-        dispatch(actions.closeRightCol());
-      } else {
-        setshowOverlay(false);
-        dispatch(actions.openRightCol());
-      }
-      if (document.documentElement.clientWidth < 800) {
-        setshowBtn(true);
-        dispatch(actions.closeLeftCol());
-      } else {
-        setshowBtn(false);
-        dispatch(actions.openLeftCol());
-      }
+      setScreenWidth(document.documentElement.clientWidth);
     };
 
     handleWindowResize();
@@ -68,11 +56,13 @@ const Overlay = () => {
     return () => {
       window.removeEventListener("resize", handleWindowResize);
     };
-  }, [dispatch]);
+  }, [dispatch, screenWidth]);
 
-  const hideLeftOrNot = showBtn ? "btn overlay-btn" : "btn overlay-btn hide";
+  const hideLeftOrNot =
+    screenWidth < 800 ? "btn overlay-btn" : "btn overlay-btn hide";
   const showOverlayOrNot =
-    (showOverlay && isRightColOpen) || (showOverlay && isLeftColOpen)
+    (screenWidth < 1020 && isRightColOpen) ||
+    (screenWidth < 1020 && isLeftColOpen)
       ? "overlay unhide"
       : "overlay";
 
