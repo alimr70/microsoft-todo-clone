@@ -45,6 +45,7 @@
 - ✅ Restrict unauthenticated user reaching route '/todo'
 - ❌ Refactor: Make a single action for adding list/task/step
 - ❌ Refactor: Make a single action for editing list/task/step
+- ❌ Refactor: Make a single action for deleting list/task/step
 - ❌ Refactor: Make a single action for task functionalities
 
 ## Back-End
@@ -67,4 +68,5 @@
 - ✅ Create an api end point for saving user's step when it is deleted
 - ❌ Refactor: Make a single api end point for adding list/task/step
 - ❌ Refactor: Make a single api end point for editing list/task/step
+- ❌ Refactor: Make a single api end point for deleting list/task/step
 - ❌ Refactor: Make a single api end point for task functionalities
