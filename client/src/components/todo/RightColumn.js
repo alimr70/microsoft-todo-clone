@@ -23,17 +23,21 @@ const RightColumn = () => {
   return (
     <>
       <div className={hideOrNot}>
-        <div className="task-item-body task-detail-title">
-          <TaskDetailsHeader task={targetTask} />
-          <CurrentTaskSteps stepArr={stepArr} />
+        <div className="big-container">
+          <div className="mid-container">
+            <div className="task-item-body task-detail-title">
+              <TaskDetailsHeader task={targetTask} />
+            </div>
+            <CurrentTaskSteps stepArr={stepArr} />
+            <AddStep parentTaskId={taskId} />
+            <AddToMyDay task={targetTask} />
+            <DueDate task={targetTask} />
+          </div>
+          <RightColumnFooter
+            currentTaskDate={new Date(targetTask.createdAt).toDateString()}
+            taskId={targetTask.id}
+          />
         </div>
-        <AddStep parentTaskId={taskId} />
-        <AddToMyDay task={targetTask} />
-        <DueDate task={targetTask} />
-        <RightColumnFooter
-          currentTaskDate={new Date(targetTask.createdAt).toDateString()}
-          taskId={targetTask.id}
-        />
       </div>
     </>
   );
