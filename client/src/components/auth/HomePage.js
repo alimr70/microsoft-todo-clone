@@ -10,13 +10,14 @@ const HomePage = () => {
     <div className="home-page-container">
       <div className="home-page">
         <h1>Welcome{isAuthenticated ? `, ${username}` : ""}</h1>
-        <h3>This is All In One Authentication app.</h3>
+        <h3>This is Microsoft's ToDo clone.</h3>
         <p>
-          I made this app to be my boilerplate whenever I need to implement
-          authentication in my projects. It provides authentication with Google,
-          Facebook, Twitter, and username & password.
+          A usual project, when a junior programmer starts thinking of building
+          a resume, is a to do list app. But the standard to do applications
+          anyone make is too simple and I did not like this idea. So, I
+          challenged myself and thought of something that normally I would not
+          find a tutorial for it and more than a simple to do list.
         </p>
-        <p>Technology Stack: MonogoDB, Express, React, Node</p>
         {isAuthenticated ? (
           <>
             <div
