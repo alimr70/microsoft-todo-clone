@@ -11,9 +11,9 @@ A usual project, when a junior programmer starts thinking of building a resume, 
 ### 1. Clone the project
 
 ```bash
-git clone https://github.com/alimr70/unified-auth.git
+https://github.com/alimr70/microsoft-todo-clone.git
 
-cd unified-auth
+cd microsoft-todo-clone
 
 npm install
 
@@ -77,7 +77,7 @@ npm run dev
 
 <hr>
 
-## If you want to try it live, [here](https://unified-auth.herokuapp.com/).
+## If you want to try it live, [here](https://msoft-todo-clone.herokuapp.com/).
 
 <hr>
 
