@@ -6,6 +6,8 @@ A usual project, when a junior programmer starts thinking of building a resume, 
 
 ## Preview
 
+![Preview](preview.gif)
+
 ## How To Install
 
 ### 1. Clone the project
