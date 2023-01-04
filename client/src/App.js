@@ -13,6 +13,9 @@ import SignUpPage from "./components/auth/SignUpPage";
 import HomePage from "./components/auth/HomePage";
 import Loading from "./components/auth/Loading";
 import Todo from "./components/todo/Todo";
+import { disableReactDevTools } from "@fvilers/disable-react-devtools";
+
+if (process.env.NODE_ENV === "production") disableReactDevTools();
 
 const App = () => {
   const dispatch = useDispatch();
@@ -30,7 +33,7 @@ const App = () => {
 
   return (
     <Router>
-      <div className="App">
+      <div className='App'>
         {isLoading ? <Loading /> : ""}
         <Switch>
           <Route exact path={`${process.env.PUBLIC_URL}/`}>
@@ -60,14 +63,6 @@ const App = () => {
           <Route path={`${process.env.PUBLIC_URL}/todo`}>
             <Todo />
             <Redirect to={`${process.env.PUBLIC_URL}/todo/Tasks`} />
-            {/* {isAuthenticated ? (
-              <>
-                <Todo />
-                <Redirect to={`${process.env.PUBLIC_URL}/todo/Tasks`} />
-              </>
-            ) : (
-              <Redirect to={`${process.env.PUBLIC_URL}/login`} />
-            )} */}
           </Route>
         </Switch>
       </div>

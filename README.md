@@ -79,7 +79,7 @@ npm run dev
 
 <hr>
 
-## If you want to try it live, [here](https://msoft-todo-clone.herokuapp.com/).
+<!-- ## If you want to try it live, [here](https://msoft-todo-clone.herokuapp.com/). -->
 
 <hr>
 
